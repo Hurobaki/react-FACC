@@ -4,17 +4,26 @@ import { InputForm } from "../components/InputForm";
 import Button from "@material-ui/core/Button";
 import { addNamePredicate, isEmail } from "../validators/FormPage.validators";
 
-class FormPageComponent extends Component {
+const formPredicates = fields => {
+  return [
+    {
+      name: "samePassword",
+      validator: ({ password, confirmPassword }) => password === confirmPassword
+    }
+  ];
+};
+
+class FormPageDynamicComponent extends Component {
   render() {
     return (
       <div>
-        <div>Form page</div>
-        <FormFACC isDynamic={false}>
+        <div>Form page dynamic</div>
+        <FormFACC isDynamic={true} formPredicates={formPredicates}>
           {({
             handleChange,
             handleSubmit,
             addPredicate,
-            fields: { username, email },
+            fields: { username, email, password, confirmPassword },
             errors,
             formValid
           }) => (
@@ -23,7 +32,7 @@ class FormPageComponent extends Component {
                 type="text"
                 name="username"
                 value={username}
-                labelTitle="Username :"
+                labelTitle="Username"
                 error={errors.username}
                 handleChange={handleChange}
                 setPredicate={addPredicate("username", addNamePredicate)}
@@ -32,15 +41,34 @@ class FormPageComponent extends Component {
                 type="email"
                 name="email"
                 value={email}
-                labelTitle="Email :"
+                labelTitle="Email"
                 error={errors.email}
                 handleChange={handleChange}
                 setPredicate={addPredicate("email", isEmail)}
               />
-              <Button style={{ alignSelf: "flex-end" }} type="submit">
+              <InputForm
+                type="password"
+                name="password"
+                value={password}
+                labelTitle="Password"
+                handleChange={handleChange}
+              />
+              <InputForm
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                labelTitle="Re-Type"
+                error={errors.samePassword}
+                handleChange={handleChange}
+              />
+              <Button
+                style={{ alignSelf: "flex-end" }}
+                type="submit"
+                color="primary"
+                disabled={!formValid}
+              >
                 Submit
               </Button>
-              {formValid ? <p>Valid</p> : <p>Invalid</p>}
             </form>
           )}
         </FormFACC>
@@ -49,4 +77,4 @@ class FormPageComponent extends Component {
   }
 }
 
-export const FormPage = FormPageComponent;
+export const FormPageDynamic = FormPageDynamicComponent;

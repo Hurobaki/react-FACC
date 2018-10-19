@@ -9,6 +9,18 @@ class InputFormComponent extends Component {
     setPredicate && setPredicate();
   }
 
+  /* componentDidUpdate(nextProps) {
+    const { setPredicate } = this.props;
+
+    if (
+      (nextProps.name === "password" || nextProps.name === "passVerif") &&
+      nextProps.value !== this.props.value
+    ) {
+      console.log("il faut set le predicat");
+      setPredicate && setPredicate();
+    }
+  } */
+
   render() {
     const {
       classes,
@@ -23,6 +35,7 @@ class InputFormComponent extends Component {
       <TextField
         error={!!error}
         label={error ? error : labelTitle}
+        type={type}
         defaultValue={value}
         className={classes.textField}
         margin="normal"
