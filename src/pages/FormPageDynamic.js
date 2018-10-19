@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import { FormFACC } from "../components/FormFACC";
 import { InputForm } from "../components/InputForm";
 import Button from "@material-ui/core/Button";
-import { addNamePredicate, isEmail } from "../validators/FormPage.validators";
+import {
+  addNamePredicate,
+  isEmail,
+  isPasswordEqual
+} from "../validators/FormPage.validators";
 
 const formPredicates = fields => {
   return [
     {
       name: "samePassword",
-      validator: ({ password, confirmPassword }) => password === confirmPassword
+      validator: isPasswordEqual
     }
   ];
 };
