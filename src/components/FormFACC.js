@@ -37,8 +37,7 @@ class FormFACCComponent extends Component {
           ? { [curr]: sampleFormError[curr] }
           : {};
         return {
-          errors: { ...acc.errors, ...error },
-          formValid: !!(acc.formValid && predicates[curr](fields[curr]))
+          errors: { ...acc.errors, ...error }
         };
       },
       { errors: {} }
