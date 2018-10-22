@@ -29,7 +29,6 @@ class FormFACCComponent extends Component {
 
   validate = () => {
     const { predicates, fields, customPredicates } = this.state;
-    const validatorsResult = {};
     this.setState({ errors: {} });
 
     let { errors } = Object.keys(predicates).reduce(
