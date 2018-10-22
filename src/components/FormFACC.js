@@ -31,19 +31,19 @@ class FormFACCComponent extends Component {
     const { predicates, fields, customPredicates } = this.state;
     this.setState({ errors: {} });
 
-    let { errors } = Object.keys(predicates).reduce(
+    const { errorsPredicates } = Object.keys(predicates).reduce(
       (acc, curr) => {
         const error = !predicates[curr](fields[curr])
           ? { [curr]: sampleFormError[curr] }
           : {};
         return {
-          errors: { ...acc.errors, ...error }
+          errorsPredicates: { ...acc.errorsPredicates, ...error }
         };
       },
-      { errors: {} }
+      { errorsPredicates: {} }
     );
 
-    errors = Object.keys(customPredicates).reduce(
+    const { errorsCustomPredicates } = Object.keys(customPredicates).reduce(
       (acc, item) => {
         const error = !customPredicates[item]["validator"](fields)
           ? {
@@ -51,12 +51,17 @@ class FormFACCComponent extends Component {
                 sampleFormError[customPredicates[item]["name"]]
             }
           : {};
-        return { ...acc.errors, ...error };
+        return {
+          errorsCustomPredicates: { ...acc.errorsCustomPredicates, ...error }
+        };
       },
-      { errors: { ...errors } }
+      { errorsCustomPredicates: {} }
     );
-
-    this.setState({ errors, formValid: !Object.keys(errors).length });
+    const errors = { ...errorsPredicates, ...errorsCustomPredicates };
+    this.setState({
+      errors: errors,
+      formValid: !Object.keys(errors).length
+    });
   };
 
   handleChange = async event => {
@@ -70,8 +75,11 @@ class FormFACCComponent extends Component {
 
   handleSubmit = event => {
     const { isDynamic } = this.props;
+    const { formValid } = this.state;
     event.preventDefault();
     !isDynamic && this.validate();
+    console.log("clicked");
+    formValid && this.setState({ isClicked: true });
   };
 
   addPredicate = (field, predicateFn) => () => {

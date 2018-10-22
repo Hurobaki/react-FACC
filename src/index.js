@@ -7,7 +7,7 @@ import { FormPageHOC } from "../src/pages/FormPageHOC";
 import "./styles.css";
 
 function App() {
-  return <FormPageHOC />;
+  return <FormPageDynamic />;
 }
 
 const rootElement = document.getElementById("root");

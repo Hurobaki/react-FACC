@@ -4,4 +4,4 @@ export const isEmail = email =>
   email && /^(?:\w[._-]?)+@(?:\w)+\.(?:\w){2,4}$/.test(email);
 
 export const isPasswordEqual = ({ password, confirmPassword }) =>
-  password === confirmPassword;
+  password && /^(\w){6,}$/.test(password) && password === confirmPassword;
