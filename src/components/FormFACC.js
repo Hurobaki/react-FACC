@@ -78,7 +78,6 @@ class FormFACCComponent extends Component {
     const { formValid } = this.state;
     event.preventDefault();
     !isDynamic && this.validate();
-    console.log("clicked");
     formValid && this.setState({ isClicked: true });
   };
 

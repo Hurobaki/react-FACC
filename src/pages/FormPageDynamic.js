@@ -34,7 +34,13 @@ class FormPageDynamicComponent extends Component {
             isClicked
           }) => (
             <Fragment>
-              <form onSubmit={handleSubmit} style={{ display: "flex" }}>
+              <form
+                onSubmit={handleSubmit}
+                style={{
+                  display: "flex",
+                  flexDirection: "column"
+                }}
+              >
                 <InputForm
                   type="text"
                   name="username"
@@ -69,10 +75,10 @@ class FormPageDynamicComponent extends Component {
                   handleChange={handleChange}
                 />
                 <Button
-                  style={{ alignSelf: "flex-end" }}
                   type="submit"
                   color="primary"
                   disabled={!formValid}
+                  style={{ alignSelf: "flex-start", margin: "10px" }}
                 >
                   Submit
                 </Button>
@@ -85,5 +91,7 @@ class FormPageDynamicComponent extends Component {
     );
   }
 }
+
+const styles = {};
 
 export const FormPageDynamic = FormPageDynamicComponent;

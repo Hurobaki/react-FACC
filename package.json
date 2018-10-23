@@ -1,9 +1,9 @@
 {
-  "name": "new",
+  "name": "react-app-form-facc",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "src/components/FormFACC.js",
   "dependencies": {
     "@material-ui/core": "3.2.2",
     "prop-types": "15.6.2",
