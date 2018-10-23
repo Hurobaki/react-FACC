@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-const sampleFormError = {
-  email: "Email can't be empty",
-  username: "Must be at least 6 chars",
-  samePassword: "Passwords must be equal"
-};
-
 class FormFACCComponent extends Component {
   state = {
     fields: {},
@@ -33,9 +27,7 @@ class FormFACCComponent extends Component {
 
     const { errorsPredicates } = Object.keys(predicates).reduce(
       (acc, curr) => {
-        const error = !predicates[curr](fields[curr])
-          ? { [curr]: sampleFormError[curr] }
-          : {};
+        const error = !predicates[curr](fields[curr]) ? { [curr]: true } : {};
         return {
           errorsPredicates: { ...acc.errorsPredicates, ...error }
         };
@@ -47,8 +39,7 @@ class FormFACCComponent extends Component {
       (acc, item) => {
         const error = !customPredicates[item]["validator"](fields)
           ? {
-              [customPredicates[item]["name"]]:
-                sampleFormError[customPredicates[item]["name"]]
+              [customPredicates[item]["name"]]: true
             }
           : {};
         return {

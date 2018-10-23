@@ -1,11 +1,5 @@
 import React, { Component } from "react";
 
-const sampleFormError = {
-  email: "Email can't be empty",
-  username: "Must be at least 6 chars",
-  samePassword: "Passwords must be equal"
-};
-
 export const withForm = ({ isDynamic, formPredicates }) => WrappedComponent => {
   class WithForm extends Component {
     state = {
@@ -32,9 +26,7 @@ export const withForm = ({ isDynamic, formPredicates }) => WrappedComponent => {
 
       let { errors } = Object.keys(predicates).reduce(
         (acc, curr) => {
-          const error = !predicates[curr](fields[curr])
-            ? { [curr]: sampleFormError[curr] }
-            : {};
+          const error = !predicates[curr](fields[curr]) ? { [curr]: true } : {};
           return {
             errors: { ...acc.errors, ...error }
           };
@@ -46,8 +38,7 @@ export const withForm = ({ isDynamic, formPredicates }) => WrappedComponent => {
         (acc, item) => {
           const error = !customPredicates[item]["validator"](fields)
             ? {
-                [customPredicates[item]["name"]]:
-                  sampleFormError[customPredicates[item]["name"]]
+                [customPredicates[item]["name"]]: true
               }
             : {};
           return { ...acc.errors, ...error };
